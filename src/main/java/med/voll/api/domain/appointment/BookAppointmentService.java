@@ -1,5 +1,6 @@
 package med.voll.api.domain.appointment;
 
+import jakarta.persistence.EntityNotFoundException;
 import med.voll.api.domain.appointment.validations.AppointmentValidator;
 import med.voll.api.domain.doctor.Doctor;
 import med.voll.api.domain.doctor.DoctorRepository;
@@ -48,5 +49,9 @@ public class BookAppointmentService {
             throw new IntegrityException("You must select a speciality");
         }
         return doctorRepository.getSpecialistDoctorOnDate(bookAppointmentData.speciality(), bookAppointmentData.date());
+    }
+
+    public DetailsAppointmentData getReferenceById(Long id){
+        return new DetailsAppointmentData(appointmentRepository.getReferenceById(id));
     }
 }

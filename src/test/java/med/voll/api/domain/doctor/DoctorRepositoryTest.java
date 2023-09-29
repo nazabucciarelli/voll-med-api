@@ -32,14 +32,16 @@ class DoctorRepositoryTest {
     @Test
     @DisplayName("deberia retornar nulo cuando el medico se encuentre en consulta con otro paciente en ese horario")
     void getSpecialistDoctorOnDate1() {
+        // Given
         var nextMonday10AM = LocalDate.now()
                 .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
                 .atTime(10,0);
         Doctor doctor = registerDoctor("Nazareno Bucciarelli","nb@gmail.com","44532312",Speciality.CARDIOLOGIA);
         Patient patient= registerPatient("Jose Peralta", "jp@gmail.com","431345325");
         registerAppointment(doctor,patient,nextMonday10AM);
-
+        // When
         var freeDoctor = doctorRepository.getSpecialistDoctorOnDate(Speciality.CARDIOLOGIA,nextMonday10AM);
+        // Then
         assertThat(freeDoctor).isNull();
     }
 
